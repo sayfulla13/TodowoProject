@@ -1,0 +1,67 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+
+{% if todo.finishedDate is null %}
+
+<h2>{{ todo.title }}</h2>
+
+
+<div style="width: 50%">
+<form action="{% url 'todoID' todo.pk %}" method="post" style="width: 100%" id="date">{% csrf_token %}
+  <div class="form-group">
+    <label for="id_titl" class="form-label">Название</label>
+    <input name="title" type="text" class="form-control" required id="id_titl" maxlength="100" value="{{ todo.title }}">
+  </div>
+
+  <div class="form-group">
+      <label for="id_titl" class="form-label">Описание</label>
+      <textarea  name="discription"  class="form-control"  id="id_discription" cols="40" rows="10">{{ todo.discription }}</textarea>
+
+  </div>
+
+    <div class="form-group" style="margin-top: 1%">
+        <label class="form-check-label" for="id_important">Важно</label>
+        <input {% if todo.important %}checked{% endif %} type="checkbox" class="form-check-input"  name="important" id="id_important">
+  </div>
+
+</form>
+
+<div class="row">
+  <div class="col">
+   <button form="date" type="submit" class="btn btn-primary form-control">Сохранить</button>
+  </div>
+  <div class="col">
+     <button type="submit" class="btn btn-primary form-control" form="complete" style="background-color: green;border-color: green">Выполнено</button>
+  </div>
+  <div class="col">
+    <button form="delete" type="submit" class="btn btn-primary form-control" style="background-color: brown;border-color: brown">Удалить</button>
+  </div>
+</div>
+
+
+</div>
+
+
+
+<form action="{% url 'deleteToDo' todo.pk %}" id="delete">
+    {% csrf_token %}
+</form>
+
+<form action="{% url 'completeTodo' todo.pk %}" method="POST" id="complete">
+    {% csrf_token %}
+</form>
+
+
+
+    {% else %}
+
+    <h3>{{ todo.title }}</h3>
+   {% if todo.discription %}
+   	 <h3>{{ todo.discription }}</h3>
+   {% endif %}
+    <h5> Начато {{ todo.createdDate }} --- Закончено {{ todo.finishedDate }}</h5>
+
+
+
+  {% endif %}
+{% endblock %}

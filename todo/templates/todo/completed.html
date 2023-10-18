@@ -1,0 +1,18 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+    <h3>Выполненные задачи</h3>
+    {% for todo in todos %}
+    <div class="list-group" style="margin-bottom: 1%;margin-top: 1%">
+
+
+                <a  href="{% url 'todoID' todo.pk %} " class="list-group-item list-group-item-action">
+                {% if todo.important %}<b>{% endif %}{{ todo.title }}{% if todo.important %}</b>{% endif %}
+                {% if todo.discription %}-- {{ todo.discription }}{% endif %}
+                </a>
+
+        </div>
+
+    {% endfor %}
+
+
+{% endblock %}

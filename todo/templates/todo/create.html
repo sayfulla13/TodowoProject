@@ -1,0 +1,24 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+    <h1>Создать новую задачу</h1>
+
+<form action="{% url 'createtodo' %}" method="post" style="width: 50%">{% csrf_token %}
+  <div class="mb-3">
+    <label for="id_titl" class="form-label">Название</label>
+    <input name="title" type="text" class="form-control" required id="id_titl" maxlength="100">
+  </div>
+
+  <div class="mb-3">
+      <label for="id_titl" class="form-label">Описание</label>
+      <textarea name="discription"  class="form-control" id="id_discription" cols="40" rows="10"></textarea>
+
+  </div>
+
+    <div class="mb-3 form-check">
+        <label class="form-check-label" for="id_important">Важно</label>
+        <input type="checkbox" class="form-check-input"  name="important" id="id_important">
+  </div>
+
+    <button type="submit" class="btn btn-primary">Создать заметку</button>
+</form>
+{% endblock %}
